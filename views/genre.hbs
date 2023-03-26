@@ -1,0 +1,31 @@
+<h1>Genre</h1>
+
+<form action="/genre/create" method="post">
+    <input type="text" name="name" id="name">
+    <button type="submit">Create</button>
+</form>
+
+{{#if genre}}
+<table>
+    <tr>
+        <thead>
+            <th>Name</th>
+        </thead>
+    </tr>
+    <tbody>
+        {{#each genre}}
+        <tr>
+            <td>
+                {{name}}
+            </td>
+            <td>
+                <a href="/genre/delete/{{id}}" class="waves-effect waves-light btn"
+                    style="background: #e53935">Delete</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<h2>Genre are empty</h2>
+{{/if}}

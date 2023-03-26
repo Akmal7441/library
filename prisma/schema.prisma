@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id       Int    @id @default(autoincrement())
+  title    String @db.VarChar(255)
+  author   Author @relation(fields: [authorId], references: [id])
+  authorId Int
+  genre    Genre  @relation(fields: [genreId], references: [id])
+  genreId  Int
+}
+
+model Author {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+  book Book[]
+}
+
+model Genre {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+  book Book[]
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  username String @db.VarChar(255)
+  password String @db.VarChar(255)
+}

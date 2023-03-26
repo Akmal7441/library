@@ -1,0 +1,55 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="/book" class="brand-logo">Logo</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+                <input type="text" name="input" placeholder="Search..." id="input" />
+                <ul id="response"></ul>
+            </li>
+            {{#if areBooks}}
+            <li class="active"><a href="/book">All books</a></li>
+            {{else}}
+            <li><a href="/book">All books</a></li>
+            {{/if}}
+            {{#if isHome}}
+            <li class="active"><a href="/book/add">Add book</a></li>
+            {{else}}
+            <li><a href="/book/add">Add book</a></li>
+            {{/if}}
+            <li><a href="/author">Author</a></li>
+            <li><a href="/genre">Genre</a></li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    .res{
+        color: black;
+    }
+    #response{
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<script>
+    const input = document.getElementById("input")
+    const res = document.getElementById("response")
+
+    input.addEventListener("input", async (e) => {
+        res.innerHTML = ""
+        e.preventDefault()
+        let data = await fetch("http://localhost:4000/search", {
+            body: JSON.stringify({ input: input.value }), method: "post", headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        data = await data.json()
+        data.forEach((foun) => {
+            const li = document.createElement("li")
+            li.innerHTML = foun?.title ? foun.title : foun.name
+            li.className = "res"
+            res.appendChild(li)
+        })
+    })
+</script>

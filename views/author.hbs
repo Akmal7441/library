@@ -1,0 +1,31 @@
+<h1>Author</h1>
+
+<form action="/author/create" method="post">
+    <input type="text" name="name">
+    <button type="submit">Create</button>
+</form>
+
+{{#if author}}
+<table>
+    <tr>
+        <thead>
+            <th>Name </th>
+        </thead>
+    </tr>
+    <tbody>
+        {{#each author}}
+        <tr>
+            <td>
+                {{name}}
+            </td>
+            <td>
+                <a href="/author/delete/{{id}}" class="waves-effect waves-light btn"
+                    style="background: #e53935">Delete</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<h2>Author are empty</h2>
+{{/if}}

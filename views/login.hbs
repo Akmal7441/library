@@ -1,0 +1,70 @@
+<form action="/auth/login" method="post">
+{{#if error}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+    <br>
+    <h2 class="login">Login</h2>
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username">
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password">
+    <br><br>
+    <input type="submit" class="btn">
+    <br>
+    <a style="text-align: center; text-decoration: none;" href="/api/register">Sign Up</a>
+    <br><br>
+</form>
+
+<style>
+    form {
+        background: rgba(255, 255, 255, .01);
+        padding: 35px;
+        width: 550px;
+        border-radius: 25px;
+        box-shadow: 0 0 15px .1px #ccc;
+        margin-top: 100px;
+    }
+
+    .login {
+        color: #fff;
+        margin: auto;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 50px;
+    }
+
+    input {
+        width: 400px !important;
+        margin: auto;
+        font-size: 22px;
+        padding: 0px;
+        background: transparent;
+        color: #fff;
+    }
+
+    label {
+        color: #fff;
+        margin-left: 50px;
+    }
+
+    .btn {
+        background: transparent;
+        border: 2px solid #ccc;
+        color: #fff;
+        border-radius: 25px;
+        width: 250px !important;
+        margin: auto;
+        padding: 13px 15px;
+    }
+
+    .btn:hover {
+        color: #fff;
+    }
+
+    a:hover {
+        color: #fff;
+    }
+    .error{
+        text-align: center;
+    }
+</style>
