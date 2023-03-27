@@ -40,15 +40,15 @@ module.exports.deleteGenre = async (req, res) => {
 module.exports.updateGenre = async (req, res) => {
     try {
         const { id } = req.params
-        const { title, authorId } = req.body
-        if (!title || !authorId) {
+        const { title, authorId,genreId} = req.body
+        if (!title || !genreId) {
             return res.status(400).render({ message: "title and auhtorId is required" })
         }
-        const book = await prisma.book.update({ where: { id: Number(id) }, data: { title, authorId } })
-        res.render('genre')
+        const genre = await prisma.genre.update({ where: { id: Number(id) }, data: {  genreId: Number(genreId)} })
+        res.render('/genre')
     } catch (error) {
         console.log(error)
-        res.status(400).render({ message: error.message })
+        res.redirect('/genre')
     }
 }
 
@@ -67,4 +67,11 @@ module.exports.searchGenre = async (req, res) => {
         console.log(error)
         res.status(400).render({ message: error.message })
     }
+}
+
+module.exports.getUpdateGenre = async (req,res) => {
+    const book = await prisma.book.findFirst({where: {id: Number(req.params.id)}})
+    const author = await prisma.author.findMany()
+    const genre = await prisma.genre.findMany()
+    res.render('updateBook',{book,author,genre})
 }

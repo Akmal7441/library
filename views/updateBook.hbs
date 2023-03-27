@@ -1,0 +1,30 @@
+<form class="col s12" action="/book/update/{{book.id}}" method="post"  id="book">
+    <div class="row">
+        <div class="input-field col s6">
+            <input class="validate" id="name" value="{{book.title}}" type="text" name="title" />
+            <label for="name">Name</label>
+        </div>
+        <div class="input-field col s6">
+            <select name="authorId" form="book">
+                {{#each author}}
+                <option value={{id}}>{{name}}</option>
+                {{/each}}
+            </select>            
+        </div>
+        <div class="input-field col s6">
+            <select name="genreId" form="book">
+                {{#each genre}}
+                <option value={{id}}>{{name}}</option>
+                {{/each}}
+            </select> 
+        </div>
+
+    </div>
+    <button class="waves-effect waves-light btn" type="submit">Edit</button>
+</form>
+
+<style>
+    select{
+        display: block;
+    }
+</style>

@@ -49,15 +49,15 @@ module.exports.deleteBook = async (req, res) => {
 module.exports.updateBook = async (req, res) => {
     try {
         const { id } = req.params
-        const { title, authorId } = req.body
+        const { title, authorId, genreId } = req.body
         if (!title || !authorId) {
             return res.status(400).render("addBook")
         }
-        const book = await prisma.book.update({ where: { id: Number(id) }, data: { title, authorId } })
-        res.render('book')
+        await prisma.book.update({ where: { id: Number(id) },data: {title, authorId: Number(authorId), genreId: Number(genreId)} })
+        res.redirect('/book')
     } catch (error) {
         console.log(error)
-        res.render('book')
+        res.redirect('/book')
     }
 }
 
@@ -76,4 +76,11 @@ module.exports.searchBook = async (req, res) => {
         console.log(error)
         res.render('book')
     }
+}
+
+module.exports.getUpdateBook = async (req,res) => {
+    const book = await prisma.book.findFirst({where: {id: Number(req.params.id)}})
+    const author = await prisma.author.findMany()
+    const genre = await prisma.genre.findMany()
+    res.render('updateBook',{book,author,genre})
 }
